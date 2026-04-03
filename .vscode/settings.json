@@ -1,0 +1,10 @@
+{
+    "python.analysis.extraPaths": [
+        "/home/moti/.vscode-server/extensions/safebreach.safebreach-visual-attack-studio-1.1.0/stubs/safebreach-framework"
+    ],
+    "python.analysis.stubPath": "/home/moti/.vscode-server/extensions/safebreach.safebreach-visual-attack-studio-1.1.0/stubs/safebreach-framework",
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportMissingModuleSource": "none",
+        "reportMissingImports": "error"
+    }
+}

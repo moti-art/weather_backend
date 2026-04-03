@@ -1,16 +1,17 @@
 from flask import Flask, jsonify
 import requests
 import os
+from urllib.parse import quote # הוספנו את זה לטיפול ברווחים
 
 app = Flask(__name__)
 
-# קריאת המפתח ממשתנה סביבה כפי שנדרש במטלה
 API_KEY = os.getenv('OPENWEATHER_API_KEY')
 
 @app.route('/weather/<location_key>')
 def get_weather(location_key):
-    # בניית ה-URL כפי שמופיע בהוראות
-    url = f"http://api.openweathermap.org/data/2.5/weather?q={location_key}&appid={API_KEY}&units=metric"
+    # כאן אנחנו מוודאים שרווחים יהפכו ל-%20 עבור ה-API
+    location_safe = quote(location_key)
+    url = f"http://api.openweathermap.org/data/2.5/weather?q={location_safe}&appid={API_KEY}&units=metric"
     
     response = requests.get(url)
     data = response.json()
@@ -18,7 +19,6 @@ def get_weather(location_key):
     if response.status_code != 200:
         return jsonify({"error": "City not found or API key not active"}), response.status_code
 
-    # חילוץ הנתונים הנדרשים לפי המטלה
     result = {
         "location": location_key,
         "temperature": data['main']['temp'],
@@ -26,7 +26,6 @@ def get_weather(location_key):
         "humidity": data['main']['humidity'],
         "wind_speed": data['wind']['speed']
     }
-    
     return jsonify(result)
 
 if __name__ == '__main__':
