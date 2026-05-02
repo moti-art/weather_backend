@@ -1,45 +1,34 @@
-# Backend_final_project_devops# Weather Service (Backend)
+# 🌦️ Weather Service (Backend Microservice)
 
-This is a Flask-based microservice that fetches current weather data from the OpenWeatherMap API.
+[![CI for Weather Backend](https://github.com/moti-art/weather_backend/actions/workflows/ci.yaml/badge.svg)](https://github.com/moti-art/weather_backend/actions)
 
-## Prerequisites
-* Docker installed
-* OpenWeatherMap API Key (Free tier)
+This microservice is a core component of the **Weather Dashboard Project**. It acts as a RESTful API gateway that fetches real-time weather data from the OpenWeatherMap external API and serves it to the frontend.
 
-## Installation & Local Setup
-1.Clone the repository.
+## 🚀 Features
+* **Real-time Data:** Fetches live weather (Temp, Humidity, Wind) using OpenWeatherMap API.
+* **Containerized:** Fully Dockerized for consistent deployment.
+* **GitOps Ready:** Integrated with a full CI/CD pipeline that updates Helm charts automatically.
+* **Resource Efficient:** Optimized with memory and CPU limits for AWS Free Tier.
 
-2.Navigate into the folder.
+## 🛠️ Tech Stack
+* **Language:** Python 3.9+
+* **Framework:** Flask
+* **Containerization:** Docker
+* **CI/CD:** GitHub Actions
+* **Deployment:** Helm, ArgoCD, K3s (AWS EC2)
 
-3.Build the Docker image:
+## 📂 API Endpoints
 
-Bash
-docker build -t weather-backend .
-
-Environment Variables
-This service requires an API key to function. Do not hardcode the key in the source code.
-The application reads the key from an environment variable named: OPENWEATHER_API_KEY.
-
-Running the Service
-To run the service, use the following command, replacing your_api_key_here with your actual key:
-
-Bash
-docker run -p 5000:5000 -e OPENWEATHER_API_KEY="your_api_key_here" weather-backend
-API Endpoints
-Get Weather
-URL: /weather/<location_key>
-
-Method: GET
-
-Example: curl http://localhost:5000/weather/Sydney
-
-Response Format:
-
-JSON
+### Get Weather Data
+Fetches current weather for a specific city.
+* **URL:** `/weather/<city_name>`
+* **Method:** `GET`
+* **Success Response:** `200 OK`
+```json
 {
+  "city": "Sydney",
   "description": "clear sky",
   "humidity": 65,
-  "location": "Sydney",
   "temperature": 22.5,
   "wind_speed": 4.1
 }
